@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Aboreto&display=swap");
+
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Aboreto", system-ui;
+  font-weight: 400;
+  background: whitesmoke;
+}
+
+#title {
+  text-align: center;
+  margin: 1.563rem 0 0.938rem 0;
+  font-size: 2.5rem;
+  /*creates space between the letters*/
+  letter-spacing: 0.313rem;
+}
+
+/*Loader*/
+.loader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.loader img {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/*Image Container*/
+.img-container {
+  margin: 0.625rem 30%;
+}
+
+.img-container img {
+  width: 100%;
+  margin-top: 0.8rem;
+}
+
+/*Media Queries*/
+/*
+Steps to know what looks good and responsive
+    => go to dev tools
+    => select a phone for the size
+    => change some properties in the dev tools to look what is best
+*/
+
+/*Media Query for large Smartphone*/
+@media screen and (max-width: 600px) {
+  #title {
+    font-size: 0.8rem;
+  }
+
+  .img-container {
+    margin: 0.625rem;
+  }
+}
