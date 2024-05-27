@@ -13,18 +13,6 @@ const apiKey = "YYdJB44BbZdV-B8D1CoOyYjVzVgC-tWNSHX0BD8zTh0";
 //Unsplash gives us information about the url to fetch content => can edit by using a template string
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
 
-//Get photos from the Unsplash API
-async function getPhotos() {
-  try {
-    const response = await fetch(apiUrl);
-    const photosArray = await response.json();
-    console.log(photosArray);
-    renderPhotos();
-  } catch (error) {
-    //catch error here
-  }
-}
-
 //Helper Function to set attributes on DOM elements
 //=> to have dry code => which means that the codes does not repeat itself unnecessarily
 function setAttributes(element, attributes) {
@@ -36,7 +24,7 @@ function setAttributes(element, attributes) {
   }
 }
 
-function renderPhotos(photosArray) {
+function renderPhotos() {
   //photos is a self named el in the array => just like we do in the for in or for of loops
   photosArray.forEach((photo) => {
     //create link to unsplash
@@ -58,6 +46,18 @@ function renderPhotos(photosArray) {
     item.appendChild(img);
     imgContainer.appendChild(item);
   });
+}
+
+//Get photos from the Unsplash API
+async function getPhotos() {
+  try {
+    const response = await fetch(apiUrl);
+    photosArray = await response.json();
+    console.log(photosArray);
+    renderPhotos();
+  } catch (error) {
+    //catch error here
+  }
 }
 
 //On load
