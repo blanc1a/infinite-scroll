@@ -17,6 +17,7 @@ body {
   font-size: 2.5rem;
   /*creates space between the letters*/
   letter-spacing: 0.313rem;
+  transition: margin 0.5s ease;
 }
 
 /*Loader*/
@@ -38,7 +39,8 @@ body {
 
 /*Image Container*/
 .img-container {
-  margin: 0.625rem 30%;
+  margin: 0.625rem 22%;
+  transition: margin 0.5s ease;
 }
 
 .img-container img {
@@ -55,12 +57,40 @@ Steps to know what looks good and responsive
 */
 
 /*Media Query for large Smartphone*/
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1200px) {
   #title {
-    font-size: 0.8rem;
+    font-size: 2rem;
   }
 
   .img-container {
-    margin: 0.625rem;
+    margin: 0.625rem 20%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  #title {
+    font-size: 1.875rem;
+  }
+  .img-container {
+    margin: 0.625rem 18%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  #title {
+    font-size: 1.75rem;
+  }
+  .img-container {
+    margin: 0.625rem 16%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #title {
+    font-size: 1.625rem;
+  }
+
+  .img-container {
+    margin: 0.625rem 14%;
   }
 }
