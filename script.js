@@ -1,17 +1,32 @@
 const imgContainer = document.getElementById("img-container");
 const loader = document.getElementById("loader");
 
+let ready = false; //when page first loads, we want it to be false
+let imagesLoaded = 0; //number ticking up to 30
+let totalImages = 0; //keep track of the total imgs => so we know when it's done
 let photosArray = []; //state
 
 //Unsplash API
 //We can create an App/a Project => get API-Key
 //https://unsplash.com/documentation#get-a-random-photo
 
-const count = 10;
+const count = 30;
 const apiKey = "YYdJB44BbZdV-B8D1CoOyYjVzVgC-tWNSHX0BD8zTh0";
 
 //Unsplash gives us information about the url to fetch content => can edit by using a template string
 const apiUrl = `https://api.unsplash.com/photos/random/?client_id=${apiKey}&count=${count}`;
+
+//check if all images were loaded
+function imageLoaded() {
+  imagesLoaded++; //imagesLoaded value gets incremented with every pic that's loaded
+  console.log(imagesLoaded);
+  if (imagesLoaded === totalImages) {
+    //totalImages is gonna be set in the renderPhotos()
+    //means page is ready and everything has finished loading
+    ready = true;
+    console.log("ready = ", ready);
+  }
+}
 
 //Helper Function to set attributes on DOM elements
 //=> to have dry code => which means that the codes does not repeat itself unnecessarily
@@ -25,6 +40,9 @@ function setAttributes(element, attributes) {
 }
 
 function renderPhotos() {
+  imagesLoaded = 0; //has to be set as 0 each time bc otherwise the if statement in the imageLoaded() would not function properly => imagesLoaded would be more than 30 and ready would not be true anymore => we cannot load more photos
+  totalImages = photosArray.length; //totalImages value is gonna be set by the length of the array
+  console.log("total images = ", totalImages);
   //photos is a self named el in the array => just like we do in the for in or for of loops
   photosArray.forEach((photo) => {
     //create link to unsplash
@@ -42,6 +60,8 @@ function renderPhotos() {
       alt: photo.alt_description,
       title: photo.alt_description,
     });
+    //eventListener, check when each img is finished loading
+    img.addEventListener("load", imageLoaded);
     //append the elements
     item.appendChild(img);
     imgContainer.appendChild(item);
@@ -67,11 +87,18 @@ window.addEventListener("scroll", () => {
   //console.log("scrolled");
 
   if (
-    window.innerHeight + window.scrollY >=
-    document.body.offsetHeight - 1000
+    window.innerHeight + window.scrollY >= document.body.offsetHeight - 1000 &&
+    ready
   ) {
+    ready = false;
     getPhotos();
   }
+  //window.innerHeight => total height of the browser window => value stays constant unless the browser window is resized (px)
+  //window.scrollY => distance of the top of the page the user has scrolled => number will keep going up (px)
+  //we have to sum up those 2 values and compare it to something => document.body.offsetHeight
+  //document.body.offsetHeight => height of everything in the body, includingwhat is not within view (combined height of all our imgs)
+  //- 1000px => we need to substract from offsetHeight to trigger the event before the bottom is reached => in our case 1000 bc most window.innerHeights are less than 1000px
+  //&& ready needs to be true
 });
 
 //On load
