@@ -24,6 +24,7 @@ function imageLoaded() {
     //totalImages is gonna be set in the renderPhotos()
     //means page is ready and everything has finished loading
     ready = true;
+    loader.hidden = true; //loader shows when we load more images
     console.log("ready = ", ready);
   }
 }
