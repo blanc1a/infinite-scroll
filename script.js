@@ -60,6 +60,20 @@ async function getPhotos() {
   }
 }
 
+//Check to see if scrolling near bottom of page, load more photos
+//add the eventListener to the window => is the parent of document, and grand-parent of our body => we're going to the heighest possible level
+window.addEventListener("scroll", () => {
+  //shows how often we trigger this event - BUT we only want it to get triggered once we reach the bottom of the page
+  //console.log("scrolled");
+
+  if (
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - 1000
+  ) {
+    getPhotos();
+  }
+});
+
 //On load
 //Go to dev tools => network => ctrl + r => fetch request => show preview to see if the fetch is working
 getPhotos();
